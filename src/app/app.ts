@@ -7,7 +7,18 @@ import { errorHandler } from "../shared/middleware/error-handler";
 
 const app = express();
 
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "https://rapidojobs.com",
+];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  }), 
+);
 app.use(helmet());
 app.use(morgan("dev"));
 

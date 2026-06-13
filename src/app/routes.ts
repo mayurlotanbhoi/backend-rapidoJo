@@ -4,6 +4,6 @@ import jobRoutes from "../modules/jobs/routes/job.routes";
 
 const router = Router();
 
-router.use("/jobs", jobRoutes);
+router.use("/", jobRoutes);
 
 export default router;

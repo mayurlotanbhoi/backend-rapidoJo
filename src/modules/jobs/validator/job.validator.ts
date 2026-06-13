@@ -1,29 +1,56 @@
 import { z } from "zod";
 
-export const createJobSchema = z.object({
-     title: z.string().min(3),
+export const createJobsSchema = z
+  .object({
+    title: z.string().optional(),
 
-     company: z.string().min(2),
+    company: z.string().optional(),
 
-     source: z.string(),
+    companyEmail: z.string().email("Invalid email").optional(),
 
-     sourceUrl: z.string().url(),
+    source: z.string().optional(),
 
-     location: z.string(),
+    sourceUrl: z.string().url("Invalid URL").optional(),
 
-     salaryMin: z.number().optional(),
+    location: z.string().optional(),
 
-     salaryMax: z.number().optional(),
+    salaryMin: z.coerce.number().optional(),
 
-     expMin: z.number().optional(),
+    salaryMax: z.coerce.number().optional(),
 
-     expMax: z.number().optional(),
+    expMin: z.coerce.number().optional(),
 
-     skills: z.array(z.string()),
+    expMax: z.coerce.number().optional(),
 
-     description: z.string(),
+    skills: z.string().optional(),
 
-     requirements: z.array(z.string()),
+    description: z.string().optional(),
 
-     benefits: z.array(z.string()),
-});
+    requirements: z.string().optional(),
+
+    benefits: z.string().optional(),
+
+    postPhoto: z.any().optional(),
+
+    isDeleted: z.coerce.boolean().optional(),
+  })
+  .refine(
+    (data) =>
+      data.salaryMin === undefined ||
+      data.salaryMax === undefined ||
+      data.salaryMax >= data.salaryMin,
+    {
+      message: "Max salary must be greater than min salary",
+      path: ["salaryMax"],
+    },
+  )
+  .refine(
+    (data) =>
+      data.expMin === undefined ||
+      data.expMax === undefined ||
+      data.expMax >= data.expMin,
+    {
+      message: "Max experience must be greater than min experience",
+      path: ["expMax"],
+    },
+  );

@@ -1,21 +1,33 @@
 export interface CreateJobDto {
-     title: string;
-     company: string;
-     source: string;
-     sourceUrl: string;
-     location: string;
+  title?: string;
 
-     salaryMin?: number;
-     salaryMax?: number;
+  company?: string;
 
-     expMin?: number;
-     expMax?: number;
+  source?: string;
 
-     skills: string[];
+  sourceUrl?: string;
 
-     description: string;
+  location?: string;
 
-     requirements: string[];
+  salaryMin?: number;
 
-     benefits: string[];
+  salaryMax?: number;
+
+  expMin?: number;
+
+  expMax?: number;
+
+  skills?: string;
+
+  description?: string;
+
+  requirements?: string;
+
+  companyEmail?: string;
+
+  postPhoto?: string;
+
+  benefits?: string;
+
+  isDeleted?: boolean;
 }
