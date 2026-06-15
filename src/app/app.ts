@@ -17,7 +17,7 @@ app.use(
   cors({
     origin: allowedOrigins,
     credentials: true,
-  }), 
+  }),
 );
 app.use(helmet());
 app.use(morgan("dev"));
