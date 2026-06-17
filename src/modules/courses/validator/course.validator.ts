@@ -1,22 +1,31 @@
 import { z } from "zod";
 
-export const createCourseValidator = z.object({
-  title: z.string().min(3),
+export const createCourseSchema = z.object({
+  title: z.string().min(1).optional(),
 
-  description: z.string().min(10),
+  subtitle: z.string().optional(),
 
-  thumbnail: z.string().optional(),
+  instructorName: z.string().optional(),
 
-  price: z.number(),
+  thumbnail: z.any().optional(),
 
-  googleDriveFolderId: z.string(),
+  level: z.enum(["Beginner", "Intermediate", "Advanced"]).optional(),
 
-  videos: z.array(
-    z.object({
-      title: z.string(),
-      driveFileId: z.string(),
-    }),
-  ),
+  badge: z.string().optional(),
 
-  isPublished: z.boolean().optional(),
+  googleDriveFolderId: z.string().optional(),
+
+  totalEnrollments: z.coerce.number().optional(),
+
+  totalDuration: z.string().optional(),
+
+  rating: z.coerce.number().optional(),
+
+  originalPrice: z.coerce.number().optional(),
+
+  discountAmount: z.coerce.number().optional(),
+
+  finalAmount: z.coerce.number().optional(),
+
+  isPublished: z.coerce.boolean().optional(),
 });

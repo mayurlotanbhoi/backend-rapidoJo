@@ -1,42 +1,42 @@
 jobs/
 │
 ├── controller/
-│   └── job.controller.ts
+│ └── job.controller.ts
 │
 ├── service/
-│   └── job.service.ts
+│ └── job.service.ts
 │
 ├── repository/
-│   └── job.repository.ts
+│ └── job.repository.ts
 │
 ├── model/
-│   └── job.model.ts
+│ └── job.model.ts
 │
 ├── validator/
-│   └── job.validator.ts
+│ └── job.validator.ts
 │
 ├── routes/
-│   └── job.routes.ts
+│ └── job.routes.ts
 │
 └── dto/
-    └── create-job.dto.ts
+└── create-job.dto.ts
 
 Rapido Jobs Backend Architecture
 
 This project follows a Feature-Based Clean Architecture.
 
 Request
-  ↓
+↓
 Route
-  ↓
+↓
 Validator
-  ↓
+↓
 Controller
-  ↓
+↓
 Service
-  ↓
+↓
 Repository
-  ↓
+↓
 MongoDB
 
 Each layer has one responsibility.
@@ -66,9 +66,9 @@ DELETE /jobs/:id
 Example:
 
 router.post(
-  "/",
-  validateRequest(createJobSchema),
-  controller.createJob
+"/",
+validateRequest(createJobSchema),
+controller.createJob
 );
 
 Rule:
@@ -111,7 +111,7 @@ res.status()
 Example:
 
 const job =
-  await jobService.createJob(req.body);
+await jobService.createJob(req.body);
 
 return res.json(job);
 
@@ -180,7 +180,7 @@ skills
 Example:
 
 const JobSchema =
- new mongoose.Schema(...)
+new mongoose.Schema(...)
 
 Rule:
 
@@ -194,36 +194,36 @@ DTO = Data Transfer Object
 Example:
 
 export interface CreateJobDto {
-  title: string;
-  company: string;
+title: string;
+company: string;
 }
 
 Rule:
 
 TypeScript interfaces/types only.
 Quick Memory Trick
-Routes      → Which API?
-Validator   → Is data valid?
-Controller  → Receive & Return
-Service     → Business Logic
-Repository  → Database Queries
-Model       → MongoDB Schema
-DTO         → Data Types
+Routes → Which API?
+Validator → Is data valid?
+Controller → Receive & Return
+Service → Business Logic
+Repository → Database Queries
+Model → MongoDB Schema
+DTO → Data Types
 Example Flow
 POST /jobs
-      ↓
+↓
 Route
-      ↓
+↓
 Validator
-      ↓
+↓
 Controller
-      ↓
+↓
 Service
-      ↓
+↓
 Repository
-      ↓
+↓
 MongoDB
-      ↓
+↓
 Response
 
 If you follow this rule consistently, your codebase stays organized even when you have modules like:
@@ -234,4 +234,4 @@ jobs/
 applications/
 saved-jobs/
 notifications/
-admin    
+admin

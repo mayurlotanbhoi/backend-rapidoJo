@@ -6,6 +6,6 @@ import courseRoutes from "../modules/courses/routes/course.routes";
 const router = Router();
 
 router.use("/", jobRoutes);
-router.use("/courses", courseRoutes);
+router.use("/", courseRoutes);
 
 export default router;

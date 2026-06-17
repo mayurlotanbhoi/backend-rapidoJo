@@ -33,4 +33,12 @@ app.get("/", (req, res) => {
 });
 app.use(errorHandler);
 
+process.on("uncaughtException", (err) => {
+  console.log("UNCAUGHT", err);
+});
+
+process.on("unhandledRejection", (err) => {
+  console.log("UNHANDLED", err);
+});
+
 export default app;
