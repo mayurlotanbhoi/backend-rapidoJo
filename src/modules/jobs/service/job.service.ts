@@ -11,6 +11,11 @@ export class JobService {
     return job;
   }
 
+  async createManyJob(payload: CreateJobDto[]) {
+    const job = await this.repository.createMany(payload);
+    return job;
+  }
+
   async updateJob(id: string, payload: CreateJobDto) {
     const job = await this.repository.update(id, payload);
     return job;

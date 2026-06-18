@@ -5,6 +5,9 @@ export class JobRepository {
   async create(data: CreateJobDto) {
     return JobModel.create(data);
   }
+  async createMany(data: CreateJobDto[]) {
+    return JobModel.insertMany(data);
+  }
   async update(id: string, data: CreateJobDto) {
     return JobModel.findByIdAndUpdate(id, data, {
       returnDocument: "after",

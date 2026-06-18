@@ -18,6 +18,7 @@ router.post(
   validateRequest(createJobsSchema),
   controller.createJob,
 );
+router.post("/admin/jobs-post-by-excel", controller.createManyJob);
 router.put(
   "/admin/jobs/:id",
   upload.single("postPhoto"),

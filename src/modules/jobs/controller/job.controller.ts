@@ -17,6 +17,16 @@ export class JobController {
     });
   }
 
+  async createManyJob(req: Request, res: Response) {
+    const jobs = await service.createManyJob(req.body);
+
+    return res.status(201).json({
+      success: true,
+      count: jobs.length,
+      data: jobs,
+    });
+  }
+
   async updateJob(req: Request, res: Response) {
     const id = req.params.id as string;
 
