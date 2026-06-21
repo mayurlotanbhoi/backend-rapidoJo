@@ -56,6 +56,7 @@ router.put(
   validateRequest(createCourseSchema),
   updateCourse,
 );
+router.patch("/admin/courses/:id", validateRequest(createCourseSchema), updateCourse);
 
 router.delete("/admin/courses/:id", deleteCourse);
 

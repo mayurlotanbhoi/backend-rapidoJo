@@ -25,6 +25,11 @@ router.put(
   validateRequest(createJobsSchema),
   controller.updateJob,
 );
+router.patch(
+  "/admin/jobs/:id",
+  validateRequest(createJobsSchema),
+  controller.updateJob,
+);
 router.delete("/admin/jobs", controller.deleteJobs);
 
 export default router;

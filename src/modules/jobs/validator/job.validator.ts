@@ -32,6 +32,24 @@ export const createJobsSchema = z
 
     postPhoto: z.any().optional(),
 
+    status: z.enum(["active", "inactive", "expired", "draft"]).optional(),
+
+    applications: z.coerce.number().optional(),
+
+    remote: z.coerce.boolean().optional(),
+
+    hybrid: z.coerce.boolean().optional(),
+
+    isPremium: z.coerce.boolean().optional(),
+
+    isFeatured: z.coerce.boolean().optional(),
+
+    isUrgent: z.coerce.boolean().optional(),
+
+    isSponsored: z.coerce.boolean().optional(),
+
+    type: z.string().optional(),
+
     isDeleted: z.coerce.boolean().optional(),
   })
   .refine(

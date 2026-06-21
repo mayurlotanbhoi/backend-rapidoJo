@@ -8,6 +8,40 @@ const userSchema = new mongoose.Schema(
       unique: true,
     },
     password: String,
+    mobile: {
+      type: String,
+      default: "",
+    },
+    subscription: {
+      type: String,
+      enum: ["free", "basic", "premium", "enterprise"],
+      default: "free",
+    },
+    applications: {
+      type: Number,
+      default: 0,
+    },
+    resumeUploaded: {
+      type: Boolean,
+      default: false,
+    },
+    status: {
+      type: String,
+      enum: ["active", "suspended", "inactive"],
+      default: "active",
+    },
+    location: {
+      type: String,
+      default: "",
+    },
+    skills: {
+      type: [String],
+      default: [],
+    },
+    lastLogin: {
+      type: String,
+      default: "",
+    },
     role: {
       type: String,
       enum: ["JOB_SEEKER", "RECRUITER", "ADMIN"],

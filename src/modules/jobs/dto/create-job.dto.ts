@@ -29,5 +29,23 @@ export interface CreateJobDto {
 
   benefits?: string;
 
+  status?: "active" | "inactive" | "expired" | "draft";
+
+  applications?: number;
+
+  remote?: boolean;
+
+  hybrid?: boolean;
+
+  isPremium?: boolean;
+
+  isFeatured?: boolean;
+
+  isUrgent?: boolean;
+
+  isSponsored?: boolean;
+
+  type?: string;
+
   isDeleted?: boolean;
 }

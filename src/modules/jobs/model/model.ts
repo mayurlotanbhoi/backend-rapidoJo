@@ -72,6 +72,52 @@ const jobSchema = new mongoose.Schema(
       default: "",
     },
 
+    status: {
+      type: String,
+      enum: ["active", "inactive", "expired", "draft"],
+      default: "active",
+    },
+
+    applications: {
+      type: Number,
+      default: 0,
+    },
+
+    remote: {
+      type: Boolean,
+      default: false,
+    },
+
+    hybrid: {
+      type: Boolean,
+      default: false,
+    },
+
+    isPremium: {
+      type: Boolean,
+      default: false,
+    },
+
+    isFeatured: {
+      type: Boolean,
+      default: false,
+    },
+
+    isUrgent: {
+      type: Boolean,
+      default: false,
+    },
+
+    isSponsored: {
+      type: Boolean,
+      default: false,
+    },
+
+    type: {
+      type: String,
+      default: "Full-time",
+    },
+
     postPhoto: {
       type: String,
       default: "",
