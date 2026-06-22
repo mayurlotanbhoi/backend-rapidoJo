@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
+import cookieParser from "cookie-parser";
+import rateLimit from "express-rate-limit";
 import routes from "./routes";
 import { errorHandler } from "../shared/middleware/error-handler";
 
@@ -21,6 +23,15 @@ app.use(
 );
 app.use(helmet());
 app.use(morgan("dev"));
+app.use(cookieParser());
+app.use(
+  rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 300,
+    standardHeaders: true,
+    legacyHeaders: false,
+  }),
+);
 
 app.use(express.json());
 

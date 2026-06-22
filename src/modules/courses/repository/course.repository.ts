@@ -55,7 +55,11 @@ export class CourseRepository {
   }
 
   async delete(id: string) {
-    return await CourseModel.findByIdAndDelete(id);
+    return await CourseModel.findByIdAndUpdate(
+      id,
+      { isDeleted: true, deletedAt: new Date() },
+      { new: true },
+    );
   }
 }
 

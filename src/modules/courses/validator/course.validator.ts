@@ -15,6 +15,8 @@ export const createCourseSchema = z.object({
 
   googleDriveFolderId: z.string().optional(),
 
+  discount: z.coerce.number().optional(),
+
   totalEnrollments: z.coerce.number().optional(),
 
   totalDuration: z.string().optional(),
@@ -26,6 +28,10 @@ export const createCourseSchema = z.object({
   discountAmount: z.coerce.number().optional(),
 
   finalAmount: z.coerce.number().optional(),
+
+  totalRevenue: z.coerce.number().optional(),
+
+  status: z.enum(["published", "draft", "archived", "inactive"]).optional(),
 
   isPublished: z.coerce.boolean().optional(),
 });

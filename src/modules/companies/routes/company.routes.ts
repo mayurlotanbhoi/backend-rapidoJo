@@ -6,10 +6,10 @@ import { companySchema } from "../validator/company.validator";
 const router = Router();
 const controller = new CompanyController();
 
-router.get("/admin/companies", controller.list);
-router.post("/admin/companies", validateRequest(companySchema), controller.create);
-router.patch("/admin/companies/:id", validateRequest(companySchema), controller.update);
-router.put("/admin/companies/:id", validateRequest(companySchema), controller.update);
-router.delete("/admin/companies/:id", controller.delete);
+router.get("/companies", controller.list);
+router.post("/companies", validateRequest(companySchema), controller.create);
+router.patch("/companies/:id", validateRequest(companySchema), controller.update);
+router.put("/companies/:id", validateRequest(companySchema), controller.update);
+router.delete("/companies/:id", controller.delete);
 
 export default router;

@@ -32,6 +32,10 @@ export class CompanyRepository {
   }
 
   async delete(id: string) {
-    return CompanyModel.findByIdAndDelete(id);
+    return CompanyModel.findByIdAndUpdate(
+      id,
+      { isDeleted: true, deletedAt: new Date() },
+      { new: true },
+    );
   }
 }

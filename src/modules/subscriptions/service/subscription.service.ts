@@ -20,4 +20,9 @@ export class SubscriptionService {
     const plan = await this.repository.update(id, payload);
     return new ApiResponse(true, "Subscription plan updated successfully", plan);
   }
+
+  async delete(id: string) {
+    const plan = await this.repository.delete(id);
+    return new ApiResponse(true, "Subscription plan deleted successfully", plan);
+  }
 }

@@ -42,7 +42,11 @@ export const createJobsSchema = z
 
     isPremium: z.coerce.boolean().optional(),
 
+    premium: z.coerce.boolean().optional(),
+
     isFeatured: z.coerce.boolean().optional(),
+
+    featured: z.coerce.boolean().optional(),
 
     isUrgent: z.coerce.boolean().optional(),
 
@@ -50,7 +54,7 @@ export const createJobsSchema = z
 
     type: z.string().optional(),
 
-    isDeleted: z.coerce.boolean().optional(),
+    expiryDate: z.coerce.date().optional(),
   })
   .refine(
     (data) =>

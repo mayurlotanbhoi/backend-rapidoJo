@@ -1,6 +1,7 @@
 import { JobModel } from "../../jobs/model/model";
 import CourseModel from "../../courses/model/model";
 import UserModel from "../../users/model";
+import SubscriptionPlanModel from "../../subscriptions/model/model";
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -32,18 +33,22 @@ export class DashboardRepository {
 
     const [
       totalJobs,
+      totalCourses,
       explicitActiveJobs,
       premiumJobs,
       totalUsers,
       newRegistrations,
+      activeSubscriptions,
       coursesSold,
       revenueResult,
     ] = await Promise.all([
       JobModel.countDocuments({ isDeleted: false }),
+      CourseModel.countDocuments({}),
       JobModel.countDocuments({ isDeleted: false, status: "active" }),
       JobModel.countDocuments({ isDeleted: false, isPremium: true }),
       UserModel.countDocuments(),
       UserModel.countDocuments({ createdAt: { $gte: today } }),
+      SubscriptionPlanModel.countDocuments({ status: "active" }),
       CourseModel.aggregate([{ $group: { _id: null, total: { $sum: "$totalEnrollments" } } }]),
       CourseModel.aggregate([
         {
@@ -66,9 +71,11 @@ export class DashboardRepository {
 
     return {
       totalJobs,
+      totalCourses,
       activeJobs: explicitActiveJobs || totalJobs,
       premiumJobs,
       totalUsers,
+      activeSubscriptions,
       applicationsToday: 0,
       revenue,
       coursesSold: coursesSold[0]?.total ?? 0,

@@ -6,8 +6,10 @@ import { subscriptionPlanSchema } from "../validator/subscription.validator";
 const router = Router();
 const controller = new SubscriptionController();
 
-router.get("/admin/subscriptions", controller.list);
-router.post("/admin/subscriptions", validateRequest(subscriptionPlanSchema), controller.create);
-router.patch("/admin/subscriptions/:id", validateRequest(subscriptionPlanSchema), controller.update);
+router.get("/subscriptions", controller.list);
+router.post("/subscriptions", validateRequest(subscriptionPlanSchema), controller.create);
+router.patch("/subscriptions/:id", validateRequest(subscriptionPlanSchema), controller.update);
+router.put("/subscriptions/:id", validateRequest(subscriptionPlanSchema), controller.update);
+router.delete("/subscriptions/:id", controller.delete);
 
 export default router;

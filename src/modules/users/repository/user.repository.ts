@@ -44,6 +44,10 @@ export class UserRepository {
   }
 
   async delete(id: string) {
-    return UserModel.findByIdAndDelete(id);
+    return UserModel.findByIdAndUpdate(
+      id,
+      { isDeleted: true, deletedAt: new Date() },
+      { new: true },
+    );
   }
 }

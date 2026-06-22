@@ -9,7 +9,11 @@ export class JobRepository {
     return JobModel.insertMany(data);
   }
   async update(id: string, data: CreateJobDto) {
-    return JobModel.findByIdAndUpdate(id, data, {
+    const { isDeleted, deletedAt, ...safeData } = data as any;
+
+    console.log(isDeleted);
+
+    return JobModel.findByIdAndUpdate(id, safeData, {
       returnDocument: "after",
       runValidators: true,
     });
@@ -21,33 +25,33 @@ export class JobRepository {
       isDeleted: false,
     };
 
-    // search filter
     if (search?.trim()) {
-      filter.$or = [
-        {
-          title: {
-            $regex: search,
-            $options: "i",
-          },
-        },
-        {
-          company: {
-            $regex: search,
-            $options: "i",
-          },
-        },
-        {
-          location: {
-            $regex: search,
-            $options: "i",
-          },
-        },
-        {
-          skills: {
-            $in: [new RegExp(search, "i")],
-          },
-        },
+      const terms = search
+        .split(/\s+/)
+        .map((term) => term.trim())
+        .filter(Boolean);
+
+      const searchableFields = [
+        "title",
+        "company",
+        "location",
+        "skills",
+        "source",
+        "sourceUrl",
+        "companyEmail",
+        "description",
+        "requirements",
+        "benefits",
       ];
+
+      filter.$and = terms.map((term) => ({
+        $or: searchableFields.map((field) => ({
+          [field]:
+            field === "skills"
+              ? { $in: [new RegExp(term, "i")] }
+              : { $regex: term, $options: "i" },
+        })),
+      }));
     }
 
     const [jobs, total] = await Promise.all([

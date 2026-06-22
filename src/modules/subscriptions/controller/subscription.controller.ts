@@ -18,4 +18,9 @@ export class SubscriptionController {
     const response = await service.update(req.params.id as string, req.body);
     return res.status(200).json(response);
   }
+
+  async delete(req: Request, res: Response) {
+    const response = await service.delete(req.params.id as string);
+    return res.status(200).json(response);
+  }
 }

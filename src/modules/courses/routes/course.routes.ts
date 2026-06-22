@@ -16,7 +16,7 @@ const router = Router();
 // wrapper to log multer activity and surface errors in server logs
 
 router.post(
-  "/admin/courses",
+  "/courses",
   // upload.single("thumbnail"),
   (req, res, next) => {
     upload.single("thumbnail")(req, res, (err) => {
@@ -34,12 +34,12 @@ router.post(
   createCourse,
 );
 
-router.get("/admin/courses", getCourses);
+router.get("/courses", getCourses);
 
-router.get("/admin/courses/:id", getCourseById);
+router.get("/courses/:id", getCourseById);
 
 router.put(
-  "/admin/courses/:id",
+  "/courses/:id",
   // upload.single("thumbnail"),
   (req, res, next) => {
     upload.single("thumbnail")(req, res, (err) => {
@@ -56,8 +56,8 @@ router.put(
   validateRequest(createCourseSchema),
   updateCourse,
 );
-router.patch("/admin/courses/:id", validateRequest(createCourseSchema), updateCourse);
+router.patch("/courses/:id", validateRequest(createCourseSchema), updateCourse);
 
-router.delete("/admin/courses/:id", deleteCourse);
+router.delete("/courses/:id", deleteCourse);
 
 export default router;

@@ -67,4 +67,14 @@ export class SubscriptionRepository {
 
     return plan ? toAdminRow(plan) : null;
   }
+
+  async delete(id: string) {
+    const plan = await SubscriptionPlanModel.findByIdAndUpdate(
+      id,
+      { status: "inactive" },
+      { new: true },
+    ).lean();
+
+    return plan ? toAdminRow(plan) : null;
+  }
 }

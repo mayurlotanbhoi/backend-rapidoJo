@@ -1,6 +1,11 @@
 import { z } from "zod";
 
 export const settingsSchema = z.object({
+  siteName: z.string().optional(),
+  supportEmail: z.string().email().optional().or(z.literal("")),
+  logo: z.string().optional(),
+  favicon: z.string().optional(),
+  maintenanceMode: z.coerce.boolean().optional(),
   general: z
     .object({
       siteName: z.string().optional(),

@@ -6,8 +6,8 @@ import { settingsSchema } from "../validator/settings.validator";
 const router = Router();
 const controller = new SettingsController();
 
-router.get("/admin/settings", controller.get);
-router.put("/admin/settings", validateRequest(settingsSchema), controller.update);
-router.patch("/admin/settings", validateRequest(settingsSchema), controller.update);
+router.get("/settings", controller.get);
+router.put("/settings", validateRequest(settingsSchema), controller.update);
+router.patch("/settings", validateRequest(settingsSchema), controller.update);
 
 export default router;

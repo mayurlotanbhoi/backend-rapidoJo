@@ -10,26 +10,26 @@ const router = Router();
 
 const controller = new JobController();
 
-router.get("jobs", controller.getJobs);
-router.get("/admin/jobs", controller.getJobsAdmin);
+router.get("/jobs", controller.getJobs);
+router.get("/jobs/admin", controller.getJobsAdmin);
 router.post(
-  "/admin/jobs",
+  "/jobs",
   upload.single("postPhoto"),
   validateRequest(createJobsSchema),
   controller.createJob,
 );
-router.post("/admin/jobs-post-by-excel", controller.createManyJob);
+router.post("/jobs-post-by-excel", controller.createManyJob);
 router.put(
-  "/admin/jobs/:id",
+  "/jobs/:id",
   upload.single("postPhoto"),
   validateRequest(createJobsSchema),
   controller.updateJob,
 );
 router.patch(
-  "/admin/jobs/:id",
+  "/jobs/:id",
   validateRequest(createJobsSchema),
   controller.updateJob,
 );
-router.delete("/admin/jobs", controller.deleteJobs);
+router.delete("/jobs", controller.deleteJobs);
 
 export default router;

@@ -29,4 +29,12 @@ export class NotificationRepository {
 
     return notification ? normalizeNotification(notification) : null;
   }
+
+  async delete(id: string) {
+    return NotificationModel.findByIdAndUpdate(
+      id,
+      { isDeleted: true, deletedAt: new Date() },
+      { new: true },
+    );
+  }
 }

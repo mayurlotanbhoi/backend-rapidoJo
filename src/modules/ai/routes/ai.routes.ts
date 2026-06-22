@@ -6,10 +6,10 @@ import { aiSessionSchema, promptTemplateSchema } from "../validator/ai.validator
 const router = Router();
 const controller = new AIController();
 
-router.get("/admin/ai/sessions", controller.listSessions);
-router.post("/admin/ai/sessions", validateRequest(aiSessionSchema), controller.createSession);
-router.get("/admin/ai/prompt-templates", controller.listTemplates);
-router.post("/admin/ai/prompt-templates", validateRequest(promptTemplateSchema), controller.createTemplate);
-router.patch("/admin/ai/prompt-templates/:id", validateRequest(promptTemplateSchema), controller.updateTemplate);
+router.get("/ai/sessions", controller.listSessions);
+router.post("/ai/sessions", validateRequest(aiSessionSchema), controller.createSession);
+router.get("/ai/prompt-templates", controller.listTemplates);
+router.post("/ai/prompt-templates", validateRequest(promptTemplateSchema), controller.createTemplate);
+router.patch("/ai/prompt-templates/:id", validateRequest(promptTemplateSchema), controller.updateTemplate);
 
 export default router;

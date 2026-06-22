@@ -8,7 +8,7 @@ export class UserService {
 
   async create(payload: UserDto) {
     const user = await this.repository.create(payload);
-    return new ApiResponse(true, "User created successfully", toAdminRow(user.toObject()));
+    return new ApiResponse(true, "User created successfully", toAdminRow((user as any).toObject?.() || user));
   }
 
   async list(page = 1, limit = 25, search = "") {

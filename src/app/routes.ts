@@ -10,18 +10,22 @@ import notificationRoutes from "../modules/notifications/routes/notification.rou
 import subscriptionRoutes from "../modules/subscriptions/routes/subscription.routes";
 import aiRoutes from "../modules/ai/routes/ai.routes";
 import settingsRoutes from "../modules/settings/routes/settings.routes";
+import authRoutes from "../modules/auth/routes/auth.routes";
+import purchaseRoutes from "../modules/purchases/routes/purchase.routes";
 
 const router = Router();
 
-router.use("/", jobRoutes);
-router.use("/", courseRoutes);
-router.use("/", dashboardRoutes);
-router.use("/", companyRoutes);
-router.use("/", userRoutes);
-router.use("/", applicationRoutes);
-router.use("/", notificationRoutes);
-router.use("/", subscriptionRoutes);
-router.use("/", aiRoutes);
-router.use("/", settingsRoutes);
+router.use("/admin", authRoutes);
+router.use("/admin", jobRoutes);
+router.use("/admin", courseRoutes);
+router.use("/admin", dashboardRoutes);
+router.use("/admin", companyRoutes);
+router.use("/admin", userRoutes);
+router.use("/admin", applicationRoutes);
+router.use("/admin", notificationRoutes);
+router.use("/admin", subscriptionRoutes);
+router.use("/admin", purchaseRoutes);
+router.use("/admin", aiRoutes);
+router.use("/admin", settingsRoutes);
 
 export default router;

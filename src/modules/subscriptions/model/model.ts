@@ -4,10 +4,12 @@ const subscriptionPlanSchema = new Schema(
   {
     name: { type: String, required: true, trim: true },
     price: { type: Number, default: 0 },
-    period: { type: String, enum: ["monthly", "yearly"], default: "monthly" },
+    duration: { type: String, default: "" },
+    period: { type: String, enum: ["monthly", "yearly", "lifetime"], default: "monthly" },
     features: { type: [String], default: [] },
     activeUsers: { type: Number, default: 0 },
     revenue: { type: Number, default: 0 },
+    active: { type: Boolean, default: true },
     status: { type: String, enum: ["active", "inactive"], default: "active" },
     color: { type: String, default: "#6B7280" },
   },

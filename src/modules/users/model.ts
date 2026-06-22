@@ -1,21 +1,43 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-const userSchema = new mongoose.Schema(
+const userSchema = new Schema(
   {
-    name: String,
+    name: {
+      type: String,
+      default: "",
+      trim: true,
+      index: true,
+    },
     email: {
       type: String,
+      required: true,
       unique: true,
+      trim: true,
+      lowercase: true,
+      index: true,
     },
-    password: String,
+    profileImage: {
+      type: String,
+      default: "",
+    },
+    googleId: {
+      type: String,
+      default: "",
+      index: true,
+    },
+    password: {
+      type: String,
+      default: "",
+    },
     mobile: {
       type: String,
       default: "",
     },
     subscription: {
       type: String,
-      enum: ["free", "basic", "premium", "enterprise"],
+      enum: ["free", "basic", "premium", "lifetime"],
       default: "free",
+      index: true,
     },
     applications: {
       type: Number,
@@ -29,6 +51,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ["active", "suspended", "inactive"],
       default: "active",
+      index: true,
     },
     location: {
       type: String,
@@ -39,18 +62,43 @@ const userSchema = new mongoose.Schema(
       default: [],
     },
     lastLogin: {
-      type: String,
-      default: "",
+      type: Date,
+      default: null,
     },
     role: {
       type: String,
-      enum: ["JOB_SEEKER", "RECRUITER", "ADMIN"],
-      default: "JOB_SEEKER",
+      enum: ["SUPER_ADMIN", "ADMIN", "USER"],
+      default: "USER",
+      index: true,
+    },
+    refreshToken: {
+      type: String,
+      default: "",
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+      index: true,
+    },
+    deletedAt: {
+      type: Date,
+      default: null,
     },
   },
   {
     timestamps: true,
   },
 );
+
+userSchema.index({ email: 1 }, { unique: true });
+userSchema.index({ role: 1, status: 1 });
+
+userSchema.pre(/^find/, function (this: any) {
+  this.where({ isDeleted: false });
+});
+
+userSchema.pre("countDocuments", function (this: any) {
+  this.where({ isDeleted: false });
+});
 
 export default mongoose.model("User", userSchema);

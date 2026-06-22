@@ -15,6 +15,12 @@ export interface ICourse extends Document {
 
   googleDriveFolderId: string;
 
+  status?: "published" | "draft" | "archived" | "inactive";
+
+  discount?: number;
+
+  totalRevenue?: number;
+
   totalEnrollments: number;
 
   totalDuration: string;
@@ -28,6 +34,9 @@ export interface ICourse extends Document {
   finalAmount: number;
 
   isPublished: boolean;
+
+  isDeleted?: boolean;
+  deletedAt?: Date | null;
 
   createdAt: Date;
   updatedAt: Date;
@@ -104,14 +113,49 @@ const CourseSchema = new Schema<ICourse>(
       default: 0,
     },
 
+    discount: {
+      type: Number,
+      default: 0,
+    },
+
+    totalRevenue: {
+      type: Number,
+      default: 0,
+    },
+
+    status: {
+      type: String,
+      enum: ["published", "draft", "archived", "inactive"],
+      default: "draft",
+      index: true,
+    },
+
     isPublished: {
       type: Boolean,
       default: false,
+    },
+
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
+
+    deletedAt: {
+      type: Date,
+      default: null,
     },
   },
   {
     timestamps: true,
   },
 );
+
+CourseSchema.pre(/^find/, function (this: any) {
+  this.where({ isDeleted: false });
+});
+
+CourseSchema.pre("countDocuments", function (this: any) {
+  this.where({ isDeleted: false });
+});
 
 export default mongoose.model<ICourse>("Course", CourseSchema);

@@ -98,7 +98,17 @@ const jobSchema = new mongoose.Schema(
       default: false,
     },
 
+    premium: {
+      type: Boolean,
+      default: false,
+    },
+
     isFeatured: {
+      type: Boolean,
+      default: false,
+    },
+
+    featured: {
       type: Boolean,
       default: false,
     },
@@ -116,6 +126,11 @@ const jobSchema = new mongoose.Schema(
     type: {
       type: String,
       default: "Full-time",
+    },
+
+    expiryDate: {
+      type: Date,
+      default: null,
     },
 
     postPhoto: {

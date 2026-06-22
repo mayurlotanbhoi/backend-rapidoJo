@@ -50,8 +50,9 @@ export class JobController {
   async getJobs(req: Request, res: Response) {
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 10;
+    const search = String(req.query.search || "");
 
-    const jobs = await service.getJobs(page, limit);
+    const jobs = await service.getJobs(page, limit, search);
     return res.status(200).json({
       success: true,
       data: jobs,
