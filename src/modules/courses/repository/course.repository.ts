@@ -16,6 +16,7 @@ export class CourseRepository {
     const skip = (page - 1) * limit;
 
     const filter: any = {};
+    console.log(search);
 
     if (search?.trim()) {
       filter.$or = [
