@@ -16,8 +16,6 @@ export class CourseRepository {
     const skip = (page - 1) * limit;
 
     const filter: any = {};
-    console.log(search);
-
     if (search?.trim()) {
       filter.$or = [
         { title: { $regex: search, $options: "i" } },
@@ -52,7 +50,11 @@ export class CourseRepository {
   }
 
   async update(id: string, payload: Partial<CreateCourseDTO>) {
-    return await CourseModel.findByIdAndUpdate(id, payload, { new: true });
+    const { isDeleted, deletedAt, ...safePayload } = payload as any;
+    return await CourseModel.findByIdAndUpdate(id, safePayload, {
+      new: true,
+      runValidators: true,
+    });
   }
 
   async delete(id: string) {

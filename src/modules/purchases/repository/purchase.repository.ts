@@ -3,7 +3,12 @@ import { PurchaseDto } from "../dto/purchase.dto";
 
 export class PurchaseRepository {
   async create(payload: PurchaseDto) {
-    return PurchaseModel.create(payload);
+    return PurchaseModel.create({
+      ...payload,
+      transactionId: payload.transactionId || payload.paymentId || payload.utr || "",
+      paymentStatus: payload.paymentStatus || "submitted",
+      enrollmentStatus: payload.enrollmentStatus || "pending",
+    });
   }
 
   async list(page = 1, limit = 25, search = "") {
@@ -11,14 +16,27 @@ export class PurchaseRepository {
     const filter: any = {};
 
     if (search.trim()) {
+      const regex = { $regex: search.trim(), $options: "i" };
       filter.$or = [
-        { transactionId: { $regex: search, $options: "i" } },
-        { paymentStatus: { $regex: search, $options: "i" } },
+        { applicantName: regex },
+        { applicantEmail: regex },
+        { courseName: regex },
+        { paymentId: regex },
+        { utr: regex },
+        { transactionId: regex },
+        { paymentStatus: regex },
+        { enrollmentStatus: regex },
       ];
     }
 
     const [rows, total] = await Promise.all([
-      PurchaseModel.find(filter).skip(skip).limit(limit).sort({ purchasedAt: -1 }).lean(),
+      PurchaseModel.find(filter)
+        .populate("courseId", "title finalAmount thumbnail googleDriveFolderId")
+        .populate("userId", "name email")
+        .skip(skip)
+        .limit(limit)
+        .sort({ createdAt: -1 })
+        .lean(),
       PurchaseModel.countDocuments(filter),
     ]);
 
@@ -34,7 +52,8 @@ export class PurchaseRepository {
   }
 
   async update(id: string, payload: Partial<PurchaseDto>) {
-    return PurchaseModel.findByIdAndUpdate(id, payload, { new: true, runValidators: true });
+    const { isDeleted, deletedAt, ...safePayload } = payload as any;
+    return PurchaseModel.findByIdAndUpdate(id, safePayload, { new: true, runValidators: true });
   }
 
   async delete(id: string) {

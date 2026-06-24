@@ -3,7 +3,7 @@ import { ROLES } from "../../../shared/constants/roles";
 
 export const googleLoginSchema = z.object({
   credential: z.string().min(10),
-  role: z.enum([ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.USER]).optional(),
+  role: z.enum([ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.PREMIUM_USER, ROLES.NORMAL_USER, ROLES.USER]).optional(),
 });
 
 export const refreshTokenSchema = z.object({
@@ -11,5 +11,5 @@ export const refreshTokenSchema = z.object({
 });
 
 export const updateRoleSchema = z.object({
-  role: z.enum([ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.USER]),
+  role: z.enum([ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.PREMIUM_USER, ROLES.NORMAL_USER, ROLES.USER]),
 });

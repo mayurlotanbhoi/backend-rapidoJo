@@ -5,7 +5,11 @@ const service = new PurchaseService();
 
 export class PurchaseController {
   async create(req: Request, res: Response) {
-    const response = await service.create(req.body);
+    const screenshot = req.file ? (req.file as any).path : undefined;
+    const response = await service.create({
+      ...req.body,
+      ...(screenshot && { screenshot }),
+    });
     return res.status(201).json(response);
   }
 
@@ -18,7 +22,30 @@ export class PurchaseController {
   }
 
   async update(req: Request, res: Response) {
-    const response = await service.update(req.params.id as string, req.body);
+    const screenshot = req.file ? (req.file as any).path : undefined;
+    const response = await service.update(req.params.id as string, {
+      ...req.body,
+      ...(screenshot && { screenshot }),
+    });
+    return res.status(200).json(response);
+  }
+
+  async approve(req: Request, res: Response) {
+    const response = await service.update(req.params.id as string, {
+      enrollmentStatus: "approved",
+      paymentStatus: "approved",
+      verifiedBy: req.authUser?.id || null,
+    });
+    return res.status(200).json(response);
+  }
+
+  async reject(req: Request, res: Response) {
+    const response = await service.update(req.params.id as string, {
+      enrollmentStatus: "rejected",
+      paymentStatus: "rejected",
+      rejectionReason: req.body?.rejectionReason || "",
+      verifiedBy: req.authUser?.id || null,
+    });
     return res.status(200).json(response);
   }
 

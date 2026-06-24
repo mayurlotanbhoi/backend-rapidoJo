@@ -9,10 +9,8 @@ const course_routes_1 = __importDefault(require("../modules/courses/routes/cours
 const dashboard_routes_1 = __importDefault(require("../modules/dashboard/routes/dashboard.routes"));
 const company_routes_1 = __importDefault(require("../modules/companies/routes/company.routes"));
 const user_routes_1 = __importDefault(require("../modules/users/routes/user.routes"));
-const application_routes_1 = __importDefault(require("../modules/applications/routes/application.routes"));
 const notification_routes_1 = __importDefault(require("../modules/notifications/routes/notification.routes"));
 const subscription_routes_1 = __importDefault(require("../modules/subscriptions/routes/subscription.routes"));
-const ai_routes_1 = __importDefault(require("../modules/ai/routes/ai.routes"));
 const settings_routes_1 = __importDefault(require("../modules/settings/routes/settings.routes"));
 const auth_routes_1 = __importDefault(require("../modules/auth/routes/auth.routes"));
 const purchase_routes_1 = __importDefault(require("../modules/purchases/routes/purchase.routes"));
@@ -23,11 +21,9 @@ router.use("/admin", course_routes_1.default);
 router.use("/admin", dashboard_routes_1.default);
 router.use("/admin", company_routes_1.default);
 router.use("/admin", user_routes_1.default);
-router.use("/admin", application_routes_1.default);
 router.use("/admin", notification_routes_1.default);
 router.use("/admin", subscription_routes_1.default);
 router.use("/admin", purchase_routes_1.default);
-router.use("/admin", ai_routes_1.default);
 router.use("/admin", settings_routes_1.default);
 exports.default = router;
 //# sourceMappingURL=routes.js.map

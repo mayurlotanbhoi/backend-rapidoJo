@@ -58,6 +58,6 @@ router.put(
 );
 router.patch("/courses/:id", validateRequest(createCourseSchema), updateCourse);
 
-router.delete("courses/:id", deleteCourse);
+router.delete("/courses/:id", deleteCourse);
 
 export default router;
