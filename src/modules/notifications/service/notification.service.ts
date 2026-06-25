@@ -11,13 +11,18 @@ export class NotificationService {
     return new ApiResponse(true, "Notification created successfully", toAdminRow(notification.toObject()));
   }
 
-  async list() {
-    const notifications = await this.repository.list();
+  async list(page = 1, limit = 10, search = "") {
+    const notifications = await this.repository.list(page, limit, search);
     return new ApiResponse(true, "Notifications fetched successfully", notifications);
   }
 
   async update(id: string, payload: Partial<NotificationDto>) {
     const notification = await this.repository.update(id, payload);
     return new ApiResponse(true, "Notification updated successfully", notification);
+  }
+
+  async delete(id: string) {
+    const response = await this.repository.delete(id);
+    return new ApiResponse(true, "Notification deleted successfully", response);
   }
 }

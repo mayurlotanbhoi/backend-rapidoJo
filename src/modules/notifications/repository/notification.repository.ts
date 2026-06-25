@@ -1,4 +1,4 @@
-import { formatDate, toAdminRow } from "../../../shared/utils/admin-format";
+import { formatDate, toAdminRow, listResponse } from "../../../shared/utils/admin-format";
 import { NotificationDto } from "../dto/notification.dto";
 import NotificationModel from "../model/model";
 
@@ -16,9 +16,23 @@ export class NotificationRepository {
     } as any);
   }
 
-  async list() {
-    const notifications = await NotificationModel.find().sort({ createdAt: -1 }).lean();
-    return notifications.map(normalizeNotification);
+  async list(page = 1, limit = 10, search = "") {
+    const skip = (page - 1) * limit;
+    const filter: any = {};
+
+    if (search.trim()) {
+      filter.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { message: { $regex: search, $options: "i" } },
+      ];
+    }
+
+    const [notifications, total] = await Promise.all([
+      NotificationModel.find(filter).skip(skip).limit(limit).sort({ createdAt: -1 }).lean(),
+      NotificationModel.countDocuments(filter),
+    ]);
+
+    return listResponse(notifications.map(normalizeNotification), total, page, limit);
   }
 
   async update(id: string, payload: Partial<NotificationDto>) {
