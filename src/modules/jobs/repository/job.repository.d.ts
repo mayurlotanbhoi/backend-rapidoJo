@@ -142,6 +142,7 @@ export declare class JobRepository {
     }, "id"> & {
         id: string;
     }, keyof CreateJobDto> & Omit<CreateJobDto, "_id">)[]>;
+    
     update(id: string, data: CreateJobDto): Promise<(import("mongoose").Document<unknown, {}, {
         title: string;
         type: string;

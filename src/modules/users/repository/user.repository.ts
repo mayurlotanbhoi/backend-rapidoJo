@@ -1,4 +1,8 @@
-import { formatDate, listResponse, toAdminRow } from "../../../shared/utils/admin-format";
+import {
+  formatDate,
+  listResponse,
+  toAdminRow,
+} from "../../../shared/utils/admin-format";
 import UserModel from "../model";
 import { UserDto } from "../dto/user.dto";
 
@@ -27,11 +31,23 @@ export class UserRepository {
     }
 
     const [users, total] = await Promise.all([
-      UserModel.find(filter).skip(skip).limit(limit).sort({ createdAt: -1 }).lean(),
+      UserModel.find(filter)
+        .skip(skip)
+        .limit(limit)
+        .sort({ createdAt: -1 })
+        .lean(),
       UserModel.countDocuments(filter),
     ]);
 
-    return listResponse(users.map(normalizeUser), total, page, limit);
+    return {
+      users,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+      hasNext: page < Math.ceil(total / limit),
+      hasPrev: page > 1,
+    };
   }
 
   async update(id: string, payload: Partial<UserDto>) {
