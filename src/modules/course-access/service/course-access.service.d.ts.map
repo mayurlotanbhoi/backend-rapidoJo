@@ -1,1 +1,0 @@
-{"version":3,"file":"course-access.service.d.ts","sourceRoot":"","sources":["course-access.service.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,WAAW,EAAE,MAAM,uCAAuC,CAAC;AACpE,OAAO,EAAE,eAAe,EAAE,MAAM,0BAA0B,CAAC;AAG3D,qBAAa,mBAAmB;IACxB,MAAM,CAAC,OAAO,EAAE,eAAe;;;;;;;;;;;;;;;;;;;;;;;;;IAK/B,WAAW,CAAC,OAAO,EAAE,eAAe;;;;;;IAOpC,YAAY,CAAC,OAAO,EAAE,eAAe;;;;;;CAM5C"}
